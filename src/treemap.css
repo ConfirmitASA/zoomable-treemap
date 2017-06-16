@@ -1,0 +1,97 @@
+/*@import "./variables.css";*/
+:root {
+  --collapse-button-single-image: {
+    background: url("/isa/BDJPFRDMEYBPBKLVADAYFQCDAVIOEQJR/ksv%20test%20components/tracks-footprints-cat-icon.png");
+    width: 10px;
+    height: 10px;
+    background-size: cover;
+  };
+}
+
+
+.collapsed-row {display: none;}
+
+.hier-button {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+
+  &:before {
+     content: '';
+     display: block;
+     left: 30%;
+     top: 33%;
+     position: absolute;
+  }
+
+}
+
+.collapse-button::before {
+  border-color: transparent black;
+  border-style: solid;
+  border-width: 5px 0px 5px 5px;
+  height: 0;
+  width: 0;
+}
+
+.collapse-button-open::before {
+  transform: rotate(90deg);
+}
+
+.collapse-button-single::before {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+}
+
+.reportal-table{
+  font-family: 'Helvetica Neue', Roboto, sans-serif;
+  font-size:14px;
+  border-collapse:collapse;
+
+  &>thead>tr>td,
+  &>thead>tr>th{
+    background-color: var(--light-primary-color,#f0f2f5);
+    border-left: 1px solid #fff;
+    font-size:12px;
+    line-height:12px;
+    padding:8px;
+    vertical-align:bottom;
+    text-align:left;
+    font-weight:normal;
+
+    /* white-space:nowrap;*/
+    &:first-child{
+      border-left:0
+    }
+  }
+
+  &>tbody>tr:first-child>td{
+    padding-top:8px !important;
+    height: calc(32px + 8px);
+  }
+
+  &>tbody>tr>td {
+    padding: 2px 8px;
+    min-height:24px;
+    line-height:16px;
+    vertical-align:middle;
+    height:32px;
+    border-bottom: 1px solid var(--light-divider-color,#e1e4e9);
+    white-space:nowrap;
+  }
+
+  &.striped-columns>tbody>tr>td[class*=_dc]:nth-last-child(even){
+    /*coloring for even columns from end of table to compensate for uneven td count because of block headers*/
+    background: var(--primary-background-color,#f6f6f6);
+  }
+
+}
+
+.table-layout-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
