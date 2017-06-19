@@ -28,9 +28,9 @@ config.plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production'),
   }),
-  new webpack.optimize.UglifyJsPlugin({
+  /*new webpack.optimize.UglifyJsPlugin({
     compressor: { warnings: false }, output: {comments: false}
-  }),
+  }),*/
   new ExtractTextPlugin(name+'.css')
 ];
 config.postcss =  function (webpack) {
@@ -41,10 +41,10 @@ config.postcss =  function (webpack) {
     require("postcss-apply")(),
     require("postcss-cssnext")({
       browsers:AUTOPREFIXER_BROWSERS
-    }),
-    require('cssnano')()
+    })/*,
+    require('cssnano')()*/
   ];
-}
+};
 
 
 module.exports = config;

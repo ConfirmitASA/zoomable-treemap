@@ -1,97 +1,92 @@
-/*@import "./variables.css";*/
-:root {
-  --collapse-button-single-image: {
-    background: url("/isa/BDJPFRDMEYBPBKLVADAYFQCDAVIOEQJR/ksv%20test%20components/tracks-footprints-cat-icon.png");
-    width: 10px;
-    height: 10px;
-    background-size: cover;
-  };
+svg {
+  font: 12px sans-serif;
 }
 
-
-.collapsed-row {display: none;}
-
-.hier-button {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-
-  &:before {
-     content: '';
-     display: block;
-     left: 30%;
-     top: 33%;
-     position: absolute;
-  }
-
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
 
-.collapse-button::before {
-  border-color: transparent black;
-  border-style: solid;
-  border-width: 5px 0px 5px 5px;
-  height: 0;
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  font: 12px sans-serif;
+  background: #cdcdef;
+  color: #000000;
+  border: 0px;
+  pointer-events: none;
+  padding: 8px;
+}
+
+.arrow-up {
+  position: absolute;
+  pointer-events: none;
   width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #cdcdef;
 }
 
-.collapse-button-open::before {
-  transform: rotate(90deg);
+.treemap {
+  margin: 8px;
+  margin-top: 40px;
+  overflow: hidden;
+  background: white;
 }
 
-.collapse-button-single::before {
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 6px;
-  height: 6px;
+
+.children text {
+  pointer-events: none;
 }
 
-.reportal-table{
-  font-family: 'Helvetica Neue', Roboto, sans-serif;
-  font-size:14px;
-  border-collapse:collapse;
-
-  &>thead>tr>td,
-  &>thead>tr>th{
-    background-color: var(--light-primary-color,#f0f2f5);
-    border-left: 1px solid #fff;
-    font-size:12px;
-    line-height:12px;
-    padding:8px;
-    vertical-align:bottom;
-    text-align:left;
-    font-weight:normal;
-
-    /* white-space:nowrap;*/
-    &:first-child{
-      border-left:0
-    }
-  }
-
-  &>tbody>tr:first-child>td{
-    padding-top:8px !important;
-    height: calc(32px + 8px);
-  }
-
-  &>tbody>tr>td {
-    padding: 2px 8px;
-    min-height:24px;
-    line-height:16px;
-    vertical-align:middle;
-    height:32px;
-    border-bottom: 1px solid var(--light-divider-color,#e1e4e9);
-    white-space:nowrap;
-  }
-
-  &.striped-columns>tbody>tr>td[class*=_dc]:nth-last-child(even){
-    /*coloring for even columns from end of table to compensate for uneven td count because of block headers*/
-    background: var(--primary-background-color,#f6f6f6);
-  }
-
+.grandparent text {
+  font-weight: bold;
+  fill: white;
 }
 
-.table-layout-fixed {
-  table-layout: fixed;
-  width: 100%;
+rect {
+  fill: none;
+  stroke: #fff;
+}
+
+rect.parent,
+.grandparent rect {
+  stroke-width: 2px;
+}
+
+.grandparent rect {
+  fill: #225d86;
+}
+
+.grandparent:hover rect {
+  fill: #003b64 ;
+}
+
+.children rect.parent,
+.grandparent rect {
+  cursor: pointer;
+}
+
+rect.parent {
+  fill-opacity: 0.5;
+}
+
+rect.child {
+  fill-opacity: 0;
+}
+
+text:hover {
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+html[data-useragent='notie'] .children:hover rect.parent {
+  fill-opacity: 0 !important;
+}
+
+html[data-useragent='notie'] .children:hover rect.child {
+  fill-opacity: 0.9 !important;
 }

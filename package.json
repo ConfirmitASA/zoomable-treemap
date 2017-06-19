@@ -1,11 +1,11 @@
 {
-  "name": "r-table-hierarchy-extended",
-  "version": "0.1.2",
-  "description": "Hiearchy plughin for aggregated tables that help presenting rowheaders in hierarchical form",
+  "name": "zoomable-treemap",
+  "version": "0.1.0",
+  "description": "Zoomable Treemap component for Reportal",
   "main": "src/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ConfirmitASA/r-table-hierarchy-extended.git"
+    "url": "https://github.com/ConfirmitASA/zoomable-treemap.git"
   },
   "scripts": {
     "build": "npm run clean && npm run build:prd",
@@ -60,6 +60,7 @@
     "codecov": ">1.0.0"
   },
   "dependencies": {
+    "d3": "^4.9.1",
     "r-reportal-base": "github:confirmitasa/r-reportal-base"
   }
 }
