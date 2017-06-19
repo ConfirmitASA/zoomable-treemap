@@ -1,6 +1,6 @@
 let hierarchyCSS = require('./treemap.css');
 
-//const d3 = require("d3");
+const d3 = require("d3"); //https://d3js.org/d3.v3.min.js;
 const BrowserDetection = require('./helpers/detectBrowser');
 const reverseEscapeEntities = require('./helpers/reverseEscapeEntities');
 
@@ -25,7 +25,6 @@ class ZoomableTreemap {
                containerWidth = 1060,
                containerHeight = 600
               }) {
-
     const treemapClass = this;
 
     const doc = document.documentElement;

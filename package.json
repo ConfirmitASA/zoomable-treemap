@@ -60,7 +60,7 @@
     "codecov": ">1.0.0"
   },
   "dependencies": {
-    "d3": "^4.9.1",
+    "d3": "3.5.17",
     "r-reportal-base": "github:confirmitasa/r-reportal-base"
   }
 }
