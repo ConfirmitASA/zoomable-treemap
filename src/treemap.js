@@ -21,8 +21,13 @@ class ZoomableTreemap {
                       return '#FFEC42'; // yellow
                     }
                   }
-                }
+                },
+               containerWidth = 1060,
+               containerHeight = 600
               }) {
+
+    const treemapClass = this;
+
     const doc = document.documentElement;
     if (!BrowserDetection.detectIE() && !BrowserDetection.detectFirefox()) {
       doc.setAttribute('data-useragent', 'notie');
@@ -31,7 +36,7 @@ class ZoomableTreemap {
     const hierarchy = this.flatToHierarchy(flatHierarchy);
 
     if(hierarchy.length > 1) {
-      this.root = {name: 'Themes', children: hierarchy};
+      this.root = {name: 'Top', children: hierarchy};
     } else if(hierarchy.length === 1){
       this.root = {name: hierarchy[0].name, children: hierarchy[0].children};
     } else {
@@ -40,11 +45,12 @@ class ZoomableTreemap {
 
     this.rows = document.querySelectorAll('#' + tableContainerId + ' tbody tr');
     this.setUpHierarchy(this.root);
+    this.isDrilldownEnabled = isDrilldownEnabled;
 
 
     let margin = {top: 20, right: 0, bottom: 0, left: 0},
-      width = 1060,
-      height = 600 - margin.top - margin.bottom,
+      width = containerWidth,
+      height = containerHeight - margin.top - margin.bottom,
       formatNumber = d3.format(",d"),
       transitioning;
 
@@ -148,6 +154,7 @@ class ZoomableTreemap {
     }
 
     function display(d) {
+
       grandparent
         .datum(d.parent)
         .on("click", transition)
@@ -189,24 +196,32 @@ class ZoomableTreemap {
           return formatNumber(d.value);
         });
 
-      g.append("text")
+      const texts = g.append("text")
         .text(function (d) {
           return d.name;
-        })
-        .on("click", function (d) {
-          if (this.parentNode.className.baseVal.indexOf('children') < 0) {
-            this.rows[d.index].children[0].children[0].click();
-          }
         })
         .call(text_center)
         .call(text_display);
 
-      parentSelection
-        .on("click", function (d) {
-          if (this.parentNode.className.baseVal.indexOf('children') < 0 && this.nextSibling.style.display === 'none') {
-            this.rows[d.index].children[0].children[0].click();
-          }
-        });
+      if(treemapClass.isDrilldownEnabled) {
+        parentSelection
+          .on("click", function (d) {
+            if (this.parentNode.className.baseVal.indexOf('children') < 0 && this.nextSibling.style.display === 'none') {
+              treemapClass.rows[d.index].children[0].children[0].click();
+            }
+
+          });
+
+        texts
+          .attr("class", "drilldown")
+          .on("click", function (d) {
+            this.classList.add('drilldown');
+            if (this.parentNode.className.baseVal.indexOf('children') < 0) {
+              treemapClass.rows[d.index].children[0].children[0].click();
+            }
+
+          });
+      }
 
 
       g.selectAll('.parent')
@@ -297,25 +312,22 @@ class ZoomableTreemap {
           return a.depth - b.depth;
         });
 
-        // Fade-in entering text.
-        g2.selectAll("text").style("fill-opacity", 0);
+        //g1.selectAll(".child").style("fill-opacity", 0);
 
-        g1.selectAll(".child").style("fill-opacity", 0);
+        t1.selectAll("text").call(text_center).style("fill-opacity", 0);
+        t1.selectAll(".child").style("fill-opacity", 0, 'important');
+        t1.selectAll(".parent").style("fill-opacity", 0);
+        t1.selectAll("rect").call(rect);
+
         g2.selectAll(".child").style("fill-opacity", 0);
-
+        g2.selectAll("text").style("fill-opacity", 0); // Fade-in entering text.
         g2.selectAll(".parent").style("fill-opacity", 0);
 
         // Transition to the new view.
-        t1.selectAll("text").call(text_center).style("fill-opacity", 0);
+
         t2.selectAll("text").call(text_center).call(text_display).style("fill-opacity", 1);
-
-        t1.selectAll(".child").style("fill-opacity", 0);
         t2.selectAll(".child").style("fill-opacity", 0);
-
-        t1.selectAll(".parent").style("fill-opacity", 0);
         t2.selectAll(".parent").style("fill-opacity", 0.5);
-
-        t1.selectAll("rect").call(rect);
         t2.selectAll("rect").call(rect);
 
         // Remove the old node when the transition is finished.
@@ -454,6 +466,5 @@ class ZoomableTreemap {
     return roots;
   }
 }
-
 
 export default ZoomableTreemap;

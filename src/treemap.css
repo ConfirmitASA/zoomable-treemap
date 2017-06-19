@@ -77,7 +77,7 @@ rect.child {
   fill-opacity: 0;
 }
 
-text:hover {
+text.drilldown:hover {
   cursor: pointer;
   font-weight: bold;
   text-decoration: underline;
