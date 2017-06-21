@@ -11,10 +11,10 @@ class ZoomableTreemap {
                 treemapContainerId,
                 isDrilldownEnabled = false,
                 colorFunction = function (value) {
-                  if (+value > 0) {
+                  if (value > 0) {
                     return '#8AE274'; //green
                   } else {
-                    if (+value < 0) {
+                    if (value < 0) {
                       return '#D4494F '; // red
                     }
                     else {
@@ -181,7 +181,7 @@ class ZoomableTreemap {
         .enter().append("rect")
         .attr("class", "child")
         .style("fill", function (d) {
-          return this.parentNode.className.baseVal.indexOf('children') >= 0 ? colorFunction(d.parent.value) : colorFunction(d.value);
+          return this.parentNode.className.baseVal.indexOf('children') >= 0 ? colorFunction(parseFloat(d.parent.colorValue)) : colorFunction(parseFloat(d.colorValue));
         })
         .call(rect);
 
@@ -189,7 +189,7 @@ class ZoomableTreemap {
         .attr("class", "parent")
         .call(rect)
         .style("fill", function (d) {
-          return colorFunction(d.value);
+          return colorFunction(parseFloat(d.colorValue));
         })
         .text(function (d) {
           return formatNumber(d.value);
@@ -425,6 +425,10 @@ class ZoomableTreemap {
       node.index = parseInt(node.index);
     }
     node.name = reverseEscapeEntities(node.name);
+    //node._children = node.children;
+    node.colorValue = parseFloat(node.colorValue);
+    //node.value = parseFloat(node.value);
+
     if (node.children && node.children.length > 0) {
       node.value = undefined;
       for (let i = 0; i < node.children.length; i++) {
