@@ -22,8 +22,9 @@ class ZoomableTreemap {
                     }
                   }
                 },
-               containerWidth = 1060,
-               containerHeight = 600
+                containerWidth = 1060,
+                containerHeight = 600,
+                title
               }) {
     const treemapClass = this;
 
@@ -34,10 +35,10 @@ class ZoomableTreemap {
 
     const hierarchy = this.flatToHierarchy(flatHierarchy);
 
-    if(hierarchy.length > 1) {
-      this.root = {name: 'Top', children: hierarchy};
-    } else if(hierarchy.length === 1){
-      this.root = {name: hierarchy[0].name, children: hierarchy[0].children};
+    if (hierarchy.length > 1) {
+      this.root = {name: title ? title : 'Top', children: hierarchy};
+    } else if (hierarchy.length === 1) {
+      this.root = {name: title ? title : hierarchy[0].name, children: hierarchy[0].children};
     } else {
       return;
     }
@@ -202,7 +203,7 @@ class ZoomableTreemap {
         .call(text_center)
         .call(text_display);
 
-      if(treemapClass.isDrilldownEnabled) {
+      if (treemapClass.isDrilldownEnabled) {
         parentSelection
           .on("click", function (d) {
             if (this.parentNode.className.baseVal.indexOf('children') < 0 && this.nextSibling.style.display === 'none') {
