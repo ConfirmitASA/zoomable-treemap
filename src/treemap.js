@@ -207,7 +207,8 @@ class ZoomableTreemap {
         parentSelection
           .on("click", function (d) {
             if (this.parentNode.className.baseVal.indexOf('children') < 0 && this.nextSibling.style.display === 'none') {
-              treemapClass.rows[d.index].children[0].children[0].click();
+              //treemapClass.rows[d.index].children[0].children[0].click();
+              treemapClass.rows[d.index].querySelector('a').click();
             }
 
           });
@@ -217,7 +218,8 @@ class ZoomableTreemap {
           .on("click", function (d) {
             this.classList.add('drilldown');
             if (this.parentNode.className.baseVal.indexOf('children') < 0) {
-              treemapClass.rows[d.index].children[0].children[0].click();
+              //treemapClass.rows[d.index].children[0].children[0].click();
+              treemapClass.rows[d.index].querySelector('a').click();
             }
 
           });
