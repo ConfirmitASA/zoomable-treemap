@@ -474,7 +474,7 @@ class ZoomableTreemap {
 
     return function (value) {
 
-      const defaultColor = "#333333";
+      const defaultColor = "#cccccc";
 
       for (let index = 0; index < palette.length; index++) {
         const range = palette[index];
@@ -482,7 +482,7 @@ class ZoomableTreemap {
         const isFromIncluded = range.isFromIncluded;
         const to = range.to;
         const isToIncluded = range.isToIncluded;
-        const color = range.color;
+        const color = range.color ? range.color : defaultColor;
 
         if (from && to) {
           if (
