@@ -10,18 +10,16 @@ class ZoomableTreemap {
                 tableContainerId,
                 treemapContainerId,
                 isDrilldownEnabled = false,
-                colorFunction = function (value) {
-                  if (value > 0) {
-                    return '#8AE274'; //green
-                  } else {
-                    if (value < 0) {
-                      return '#D4494F '; // red
-                    }
-                    else {
-                      return '#FFEC42'; // yellow
-                    }
-                  }
-                },
+                palette = [{
+                  from: 0,
+                  color: '#8AE274'
+                }, {
+                  to: 0,
+                  color: '#D4494F'
+                }, {
+                  color: '#FFEC42'
+                }],
+                colorFunction = this.calcColorFunction(palette),
                 containerWidth = 1060,
                 containerHeight = 600,
                 title
@@ -470,6 +468,44 @@ class ZoomableTreemap {
 
     // done!
     return roots;
+  }
+
+  calcColorFunction(palette) {
+
+    return function (value) {
+
+      const defaultColor = "#333333";
+
+      for (let index = 0; index < palette.length; index++) {
+        const range = palette[index];
+        const from = range.from;
+        const isFromIncluded = range.isFromIncluded;
+        const to = range.to;
+        const isToIncluded = range.isToIncluded;
+        const color = range.color;
+
+        if (from && to) {
+          if (
+            (isFromIncluded && value >= from || !isFromIncluded && value > from) &&
+            (isToIncluded && value <= to || !isToIncluded && value < to)
+          ) {
+            return color;
+          }
+        } else if (from) {
+          if (isFromIncluded && value >= from || !isFromIncluded && value > from) {
+            return color;
+          }
+        } else if (to) {
+          if (isToIncluded && value <= to || !isToIncluded && value < to) {
+            return color;
+          }
+        } else {
+          return color;
+        }
+      }
+
+      return defaultColor;
+    }
   }
 }
 
