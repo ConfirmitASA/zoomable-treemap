@@ -1,25 +1,82 @@
-svg {
-  font: 12px sans-serif;
+.zoomable-treemap {
+  & svg {
+    font: 12px sans-serif;
+  }
+
+  & .axis path,
+  & .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+
+
+/*& .treemap {
+    margin: 8px;
+    margin-top: 40px;
+    overflow: hidden;
+    background: white;
+  }*/
+
+  & .children text {
+    pointer-events: none;
+  }
+
+  & .grandparent text {
+    font-weight: bold;
+    fill: white;
+    cursor: pointer;
+  }
+
+  & rect {
+    fill: none;
+    stroke: #fff;
+  }
+
+  & rect.parent,
+  & .grandparent rect {
+    stroke-width: 2px;
+  }
+
+  & .grandparent rect {
+    fill: #225d86;
+  }
+
+  & .grandparent:hover rect {
+    fill: #003b64;
+  }
+
+  & .children rect.parent,
+  & .grandparent rect {
+    cursor: pointer;
+  }
+
+  & rect.parent {
+    fill-opacity: 0.5;
+  }
+
+  & rect.child {
+    fill-opacity: 0;
+  }
+
+  & text.drilldown:hover {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+  }
 }
 
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+
+html[data-useragent='notie'] .zoomable-treemap .children:hover rect.parent {
+  fill-opacity: 0 !important;
 }
 
-div.tooltip {
-  position: absolute;
-  text-align: center;
-  font: 12px sans-serif;
-  background: #cdcdef;
-  color: #000000;
-  border: 0px;
-  pointer-events: none;
-  padding: 8px;
+html[data-useragent='notie'] .zoomable-treemap .children:hover rect.child {
+  fill-opacity: 0.9 !important;
 }
 
-.arrow-up {
+.zoomable-treemap-arrow-up {
   position: absolute;
   pointer-events: none;
   width: 0;
@@ -29,65 +86,13 @@ div.tooltip {
   border-bottom: 7px solid #cdcdef;
 }
 
-.treemap {
-  margin: 8px;
-  margin-top: 40px;
-  overflow: hidden;
-  background: white;
-}
-
-
-.children text {
+.zoomable-treemap-tooltip {
+  position: absolute;
+  text-align: center;
+  font: 12px sans-serif;
+  background: #cdcdef;
+  color: #000000;
+  border: 0px;
   pointer-events: none;
-}
-
-.grandparent text {
-  font-weight: bold;
-  fill: white;
-  cursor: pointer;
-}
-
-rect {
-  fill: none;
-  stroke: #fff;
-}
-
-rect.parent,
-.grandparent rect {
-  stroke-width: 2px;
-}
-
-.grandparent rect {
-  fill: #225d86;
-}
-
-.grandparent:hover rect {
-  fill: #003b64 ;
-}
-
-.children rect.parent,
-.grandparent rect {
-  cursor: pointer;
-}
-
-rect.parent {
-  fill-opacity: 0.5;
-}
-
-rect.child {
-  fill-opacity: 0;
-}
-
-text.drilldown:hover {
-  cursor: pointer;
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-html[data-useragent='notie'] .children:hover rect.parent {
-  fill-opacity: 0 !important;
-}
-
-html[data-useragent='notie'] .children:hover rect.child {
-  fill-opacity: 0.9 !important;
+  padding: 8px;
 }

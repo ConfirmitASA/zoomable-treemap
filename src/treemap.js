@@ -70,7 +70,9 @@ class ZoomableTreemap {
       .ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
       .round(false);
 
-    const svg = d3.select("#" + treemapContainerId).append("svg")
+    const svg = d3.select("#" + treemapContainerId)
+      .attr('class', 'zoomable-treemap')
+      .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.bottom + margin.top)
       .style("margin-left", -margin.left + "px")
@@ -94,11 +96,11 @@ class ZoomableTreemap {
 
     // Define the div for the tooltip
     const div = d3.select("body").append("div")
-      .attr("class", "tooltip")
+      .attr("class", "zoomable-treemap-tooltip")
       .style("opacity", 0);
 
     const arrow = d3.select('body').append("div")
-      .attr("class", "arrow-up")
+      .attr("class", "zoomable-treemap-arrow-up")
       .style("opacity", 0);
 
 
